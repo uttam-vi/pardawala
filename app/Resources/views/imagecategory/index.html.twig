@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Imagecategories list</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for imageCategory in imageCategories %}
+            <tr>
+                <td><a href="{{ path('imagecategory_show', { 'id': imageCategory.id }) }}">{{ imageCategory.id }}</a></td>
+                <td>{{ imageCategory.name }}</td>
+                <td>
+                        <a href="{{ path('imagecategory_show', { 'id': imageCategory.id }) }}" class="btn btn-warning">show</a>
+                        <a href="{{ path('imagecategory_edit', { 'id': imageCategory.id }) }}" class="btn btn-primary">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{{ path('imagecategory_new') }}" class="btn btn-default">Create a new Image Category</a>
+    
+{% endblock %}

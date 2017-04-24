@@ -1,0 +1,18 @@
+fos_oauth_server:
+    db_driver:           orm
+    client_class:        AppBundle\Entity\oAuth\Client
+    access_token_class:  AppBundle\Entity\oAuth\AccessToken
+    refresh_token_class: AppBundle\Entity\oAuth\RefreshToken
+    auth_code_class:     AppBundle\Entity\oAuth\AuthCode
+    service:
+        user_provider: api.security.oauth_user_provider             # user provider
+        options:
+            access_token_lifetime: 3600000
+
+
+#services:
+#    oauth_event_listener:
+#        class: FM\ApiBundle\EventListener\OAuthEventListener
+#        tags:
+#            - { name: kernel.event_listener, event: fos_oauth_server.pre_authorization_process, method: onPreAuthorizationProcess }
+#            - { name: kernel.event_listener, event: fos_oauth_server.post_authorization_process, method: onPostAuthorizationProcess }

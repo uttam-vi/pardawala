@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Orderproduct</h1>
+
+    <table class="table col-md-3">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ orderProduct.id }}</td>
+            </tr>
+            <tr>
+                <th>Details</th>
+                <td>
+                    {% for details in orderProduct.details.orderProducts %}
+                        <label>Image Category :</label>   {{ details.imageCategory }} <br>
+                        <label>Order Product :</label>   {{ details.productImage }} <br>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Discription</th>
+                <td>{{ orderProduct.discription }}</td>
+            </tr>
+            <tr>
+                <th>Originimage</th>
+                <td>
+                    <img src="/{{product_images_directory_assert}}/{{ orderProduct.originImage }}" width="200">
+                </td>
+            </tr>
+            <tr>
+                <th>Finalimage</th>
+                <td>
+                    <img src="/{{product_images_directory_assert}}/{{ orderProduct.finalImage }}" width="200">
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <a href="{{ path('productimages_index') }}" class="btn btn-default">Back to the list</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}

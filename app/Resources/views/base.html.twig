@@ -5,9 +5,26 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('style/style.css') }}">
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block topnav %}
+            {% include '::topnav.html.twig' %}
+        {% endblock %}
+        
+        <div class="container" style="margin-top: 100px;">
+            {% block body %}{% endblock %}
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        {% block javascripts %}
+
+        {% endblock %}
+        <script>
+            $(function(){
+                $('a[title]').tooltip();
+            });
+        </script>
     </body>
 </html>

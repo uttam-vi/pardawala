@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Imagecategory</h1>
+
+    <table class="table col-md-3">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ imageCategory.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ imageCategory.name }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    {{ form_start(delete_form) }}
+                        <a href="{{ path('imagecategory_edit', { 'id': imageCategory.id }) }}" class="btn btn-primary">Edit</a>
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                        <a href="{{ path('imagecategory_index') }}" class="btn btn-default">Back to the list</a>
+                    {{ form_end(delete_form) }}                    
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

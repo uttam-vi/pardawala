@@ -1,0 +1,55 @@
+fos_rest:
+    routing_loader:
+        default_format: json
+        include_format: false
+    #disable_csrf_role: ROLE_API
+    param_fetcher_listener: true
+    view:
+        mime_types:
+            json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1', 'application/json;version=1.2']
+        view_response_listener: 'force'
+        formats:
+            xml:  true
+            json: true
+        templating_formats:
+            html: true
+    format_listener:
+        rules:
+            # URL path info
+            path:                 ^/
+            prefer_extension:     false
+            fallback_format:      json
+            priorities:           [json, html]
+            #-{ path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
+    versioning:
+        enabled: true
+        resolvers:
+            media_type:
+                enabled: true
+    exception:
+        codes:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+        messages:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+    body_listener: true
+    
+    
+
+
+#sensio_framework_extra:
+#    view:
+#        annotations: false
+
+#fos_rest:
+#    routing_loader:
+#        default_format: json
+#        include_format: false
+#    param_fetcher_listener: true
+#    body_listener: true
+#    format_listener: true
+#    view:
+#        view_response_listener: 'force'

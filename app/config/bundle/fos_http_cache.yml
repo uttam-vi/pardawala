@@ -1,0 +1,13 @@
+fos_http_cache:
+    cache_control:
+        rules:
+            # the controls section values are used in a call to Response::setCache();
+        -
+            match:
+                path: ^/notes
+                methods: [GET, HEAD]
+            headers:
+                cache_control: { public: true, max_age: 1, s_maxage: 1 }
+                last_modified: "-1 hour"
+                vary: [Accept-Encoding, Accept-Language]
+                

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Productimage</h1>
+
+    <table class="table col-md-3">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ productImage.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    <br><img src="/{{product_images_directory_assert}}/{{ productImage.image }}" width="100">
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <br>
+                    {{ form_start(delete_form) }}
+                        <a href="{{ path('productimages_edit', { 'id': productImage.id }) }}" class="btn btn-primary">Edit</a>
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                        <a href="{{ path('productimages_index') }}" class="btn btn-default">Back to the list</a>
+                    {{ form_end(delete_form) }}                    
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
