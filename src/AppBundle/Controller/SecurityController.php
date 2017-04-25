@@ -58,19 +58,19 @@ class SecurityController extends FOSRestController
      *          "description"="password of user"
      *      },
      *      {
-     *          "name"="grantType", 
+     *          "name"="grant_type", 
      *          "dataType"="string", 
      *          "required"=true,
      *          "description"="'password' as oAuth grant type"
      *      },
      *      {
-     *          "name"="clientId", 
+     *          "name"="client_id", 
      *          "dataType"="string", 
      *          "required"=true, 
      *          "description"="oAuth client id"
      *      },
      *      {
-     *          "name"="clientSecret", 
+     *          "name"="client_secret", 
      *          "dataType"="string", 
      *          "required"=true, 
      *          "description"="oAuth client secret"
