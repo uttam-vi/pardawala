@@ -57,12 +57,6 @@ class SignupController extends FOSRestController
      *          "dataType"="string", 
      *          "required"=true, 
      *          "description"="password of user NOTE : Your password must be at least 6 characters long containing at least one number and at least one uppercase letter, REGX : /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,255}/" 
-     *      },
-     *      {
-     *          "name"="confirmPassword", 
-     *          "dataType"="string", 
-     *          "required"=true, 
-     *          "description"="Password and confirm Password mast be same."
      *      }
      *   }
      * )

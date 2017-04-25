@@ -52,19 +52,9 @@ class UserManager
         $detailedError = $request->get('detailedError');
        
         $password = $request->request->get('password');
-        $confirmPassword = $request->request->get('confirmPassword');
-        
-        $request->request->remove('confirmPassword');
 
         $form->submit($request->request->all());
         if ($form->isValid()) {
-            
-            if($password != $confirmPassword){
-                $message = 'Password and confirm password must be same.';
-                $data = [];
-                $errors = [];
-                return $this->errorJsonResponse(400, $message, $data, $errors);
-            }
             
             $object = $form->getData();
 
