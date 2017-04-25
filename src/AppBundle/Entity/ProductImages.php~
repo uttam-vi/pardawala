@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -71,5 +72,28 @@ class ProductImages
     {
         return $this->image;
     }
-}
 
+    /**
+     * Set imageCategory
+     *
+     * @param \AppBundle\Entity\ImageCategory $imageCategory
+     *
+     * @return ProductImages
+     */
+    public function setImageCategory(\AppBundle\Entity\ImageCategory $imageCategory)
+    {
+        $this->imageCategory = $imageCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get imageCategory
+     *
+     * @return \AppBundle\Entity\ImageCategory
+     */
+    public function getImageCategory()
+    {
+        return $this->imageCategory;
+    }
+}

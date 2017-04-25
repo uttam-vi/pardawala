@@ -1,0 +1,60 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * OrderProductDetail
+ *
+ * @ORM\Table(name="order_product_detail")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OrderProductDetailRepository")
+ */
+class OrderProductDetail
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     * 
+     * @ORM\ManyToOne(targetEntity="ImageCategory")
+     * @ORM\JoinColumn(name="image_category_id", referencedColumnName="id", nullable=false)
+     */
+    private $imageCategory;
+    
+    /**
+     * @var int
+     * 
+     * @ORM\ManyToOne(targetEntity="ProductImages")
+     * @ORM\JoinColumn(name="product_images_id", referencedColumnName="id", nullable=false)
+     */
+    private $productImages;
+    
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="OrderProduct", inversedBy="orderProductDetail")
+     * @ORM\JoinColumn(name="order_product_id", referencedColumnName="id", nullable=false)
+     */
+    private $orderProduct;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+}
+

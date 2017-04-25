@@ -10,12 +10,14 @@
                 <td>{{ orderProduct.id }}</td>
             </tr>
             <tr>
-                <th>Details</th>
+                <th>Order Details</th>
                 <td>
-                    {% for details in orderProduct.details.orderProducts %}
-                        <label>Image Category :</label>   {{ details.imageCategory }} <br>
-                        <label>Order Product :</label>   {{ details.productImage }} <br>
-                    {% endfor %}
+                        {% for details in orderProduct.orderProductdetail %}
+                            <div class="raw col-md-3">
+                                <label>Image Category :</label>   {{ details.ImageCategory }} <br>
+                                <img src="/{{product_images_directory_assert}}/{{ details.productImages.image }}" width="200"><br>
+                            </div>
+                        {% endfor %}
                 </td>
             </tr>
             <tr>
@@ -38,7 +40,7 @@
         <tfoot>
             <tr>
                 <td colspan="2">
-                    <a href="{{ path('productimages_index') }}" class="btn btn-default">Back to the list</a>
+                    <a href="{{ path('orderproduct_index') }}" class="btn btn-default">Back to the list</a>
                 </td>
             </tr>
         </tfoot>

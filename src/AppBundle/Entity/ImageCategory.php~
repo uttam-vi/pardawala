@@ -68,5 +68,54 @@ class ImageCategory
     {
         return $this->name;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->productImages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 
+    /**
+     * Add productImage
+     *
+     * @param \AppBundle\Entity\ProductImages $productImage
+     *
+     * @return ImageCategory
+     */
+    public function addProductImage(\AppBundle\Entity\ProductImages $productImage)
+    {
+        $this->productImages[] = $productImage;
+
+        return $this;
+    }
+
+    /**
+     * Remove productImage
+     *
+     * @param \AppBundle\Entity\ProductImages $productImage
+     */
+    public function removeProductImage(\AppBundle\Entity\ProductImages $productImage)
+    {
+        $this->productImages->removeElement($productImage);
+    }
+
+    /**
+     * Get productImages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProductImages()
+    {
+        return $this->productImages;
+    }
+}

@@ -65,7 +65,7 @@ class ApiController extends FOSRestController {
      *      },
      *      parameters={
      *          {
-     *              "name"="details",
+     *              "name"="orderProductDetail",
      *              "dataType"="string",
      *              "required"=true,
      *              "description"="order details in json format."

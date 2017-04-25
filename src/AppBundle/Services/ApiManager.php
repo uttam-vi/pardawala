@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use AppBundle\Entity\ProductImages;
 use AppBundle\Entity\User;
+use AppBundle\Entity\OrderProductDetail;
 use AppBundle\Services\Traits\ResponseTrait;
 
 class ApiManager
@@ -38,16 +39,45 @@ class ApiManager
      */
     public function postOrderProduct(Request $request,User $user, Form $form)
     {
+        $orderProductDetail = $request->request->get('orderProductDetail');
+        
+        $request->request->remove('orderProductDetail');
+        
         $form->submit(array_merge($request->request->all(), $request->files->all()));
         
         if ($form->isValid()) {
             
             $object = $form->getData();
             
-            $details = $object->getDetails();
-            $details = json_decode($details,true);
-            
-            $object->setDetails($details);
+            $details = json_decode($orderProductDetail,true);
+            $detailErrors = [];
+            foreach($details as $key=>$value)
+            {
+                $imageCategory = !empty($value['imageCategory'])?$value['imageCategory']:'';
+                $productImage = !empty($value['productImage'])?$value['productImage']:'';
+                
+                if($imageCategory && $productImage){
+                    
+                    $imageCategory = $this->entityManager->getRepository('AppBundle\Entity\ImageCategory')
+                            ->find($imageCategory);
+                    
+                    $productImage = $this->entityManager->getRepository('AppBundle\Entity\ProductImages')
+                                    ->findOneBy([
+                                        'id'=>$productImage,
+                                        'imageCategory'=>$imageCategory
+                                    ]);
+                    
+                    $OrderProductDetail = new OrderProductDetail();
+                    
+                    $OrderProductDetail->setImageCategory($imageCategory);
+                    $OrderProductDetail->setProductImages($productImage);
+                    
+                    $object->addOrderProductDetail($OrderProductDetail);
+                    
+                }else{
+                    $detailErrors[$key] = 'imageCategory or productImage not found.';
+                }
+            }
             
             $originImage = $object->getOriginImage();
             

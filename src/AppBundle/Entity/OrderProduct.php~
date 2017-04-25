@@ -59,6 +59,13 @@ class OrderProduct
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+    
+    /**
+     * @var orderProductSub
+     * 
+     * @ORM\OneToMany(targetEntity="OrderProductDetail", mappedBy="orderProduct")
+     */
+    private $orderProductDetail;
 
     /**
      * Get id
@@ -165,5 +172,28 @@ class OrderProduct
     {
         return $this->finalImage;
     }
-}
 
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return OrderProduct
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

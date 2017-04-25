@@ -1,0 +1,106 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * OrderProductSub
+ *
+ * @ORM\Table(name="order_product_sub")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OrderProductSubRepository")
+ */
+class OrderProductSub
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+   /**
+     * @var OrderProduct
+     * 
+     * @ORM\ManyToOne(targetEntity="OrderProduct", inversedBy="orderProductSub")
+     * @ORM\JoinColumn(name="order_product_id", referencedColumnName="id")
+     */
+    private $orderProduct;
+    
+   /**
+     * @var ImageCategory
+     * 
+     * @ORM\ManyToOne(targetEntity="ImageCategory", inversedBy="orderProductSub")
+     * @ORM\JoinColumn(name="image_category_id", referencedColumnName="id")
+     */
+    private $imageCategory;
+    
+   /**
+     * @var ProductImages
+     * 
+     * @ORM\ManyToOne(targetEntity="ProductImages", inversedBy="orderProductSub")
+     * @ORM\JoinColumn(name="product_images_id", referencedColumnName="id")
+     */
+    private $productImages;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set imageCategory
+     *
+     * @param string $imageCategory
+     *
+     * @return OrderProductSub
+     */
+    public function setImageCategory($imageCategory)
+    {
+        $this->imageCategory = $imageCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get imageCategory
+     *
+     * @return string
+     */
+    public function getImageCategory()
+    {
+        return $this->imageCategory;
+    }
+
+    /**
+     * Set productImages
+     *
+     * @param \AppBundle\Entity\ProductImages $productImages
+     *
+     * @return OrderProductSub
+     */
+    public function setProductImages(\AppBundle\Entity\ProductImages $productImages = null)
+    {
+        $this->productImages = $productImages;
+
+        return $this;
+    }
+
+    /**
+     * Get productImages
+     *
+     * @return \AppBundle\Entity\ProductImages
+     */
+    public function getProductImages()
+    {
+        return $this->productImages;
+    }
+}

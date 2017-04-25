@@ -5,19 +5,17 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use AppBundle\Entity\OrderProductDetail;
-class OrderProductType extends AbstractType
+
+class OrderProductDetailType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('discription')
-                ->add('originImage',FileType::class)
-                ->add('finalImage',FileType::class)
-                ->add('user');
+        $builder->add('imageCategory')
+                ->add('productImages')
+                >add('orderProduct');
     }
     
     /**
@@ -26,9 +24,7 @@ class OrderProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\OrderProduct',
-            'csrf_protection'   => false,
-            'userType' => null,
+            'data_class' => 'AppBundle\Entity\OrderProductDetail'
         ));
     }
 
@@ -37,7 +33,7 @@ class OrderProductType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_orderproduct';
+        return 'appbundle_orderproductdetail';
     }
 
 

@@ -25,13 +25,6 @@ class OrderProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="details", type="json_array", length=255, nullable=true)
-     */
-    private $details;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="discription", type="string", length=255)
      */
     private $discription;
@@ -59,6 +52,13 @@ class OrderProduct
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+    
+    /**
+     * @var orderProductSub
+     * 
+     * @ORM\OneToMany(targetEntity="OrderProductDetail", mappedBy="orderProduct",cascade={"persist"})
+     */
+    private $orderProductDetail;
 
     /**
      * Get id
@@ -68,30 +68,6 @@ class OrderProduct
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set details
-     *
-     * @param string $details
-     *
-     * @return OrderProduct
-     */
-    public function setDetails($details)
-    {
-        $this->details = $details;
-
-        return $this;
-    }
-
-    /**
-     * Get details
-     *
-     * @return string
-     */
-    public function getDetails()
-    {
-        return $this->details;
     }
 
     /**
@@ -188,5 +164,47 @@ class OrderProduct
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->orderProductDetail = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add orderProductDetail
+     *
+     * @param \AppBundle\Entity\OrderProductDetail $orderProductDetail
+     *
+     * @return OrderProduct
+     */
+    public function addOrderProductDetail(\AppBundle\Entity\OrderProductDetail $orderProductDetail)
+    {
+        $orderProductDetail->setOrderProduct($this);
+        $this->orderProductDetail->add($orderProductDetail);
+
+        return $this;
+    }
+
+    /**
+     * Remove orderProductDetail
+     *
+     * @param \AppBundle\Entity\OrderProductDetail $orderProductDetail
+     */
+    public function removeOrderProductDetail(\AppBundle\Entity\OrderProductDetail $orderProductDetail)
+    {
+        $this->orderProductDetail->removeElement($orderProductDetail);
+    }
+
+    /**
+     * Get orderProductDetail
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderProductDetail()
+    {
+        return $this->orderProductDetail;
     }
 }
