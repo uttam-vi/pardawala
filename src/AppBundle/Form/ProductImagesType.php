@@ -17,12 +17,12 @@ class ProductImagesType extends AbstractType
     {
         $builder->add('image',
                     FileType::class,
-                    array('attr' => array('class'=>'form-control'))
+                    array('attr' => array('class'=>'form-control'),
+                            'data_class' => null)
                 )
                 ->add('imageCategory',
                         null,
-                        array('attr' => array('class'=>'form-control'),
-                            'data_class' => null));
+                        array('attr' => array('class'=>'form-control')));
     }
     
     /**

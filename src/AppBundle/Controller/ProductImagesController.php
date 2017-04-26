@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\DBAL\Exception;
 
 /**
  * Productimage controller.
@@ -127,7 +128,19 @@ class ProductImagesController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($productImage);
-            $em->flush($productImage);
+            
+            try{
+                $em->flush($productImage);
+                
+            } catch (\Exception $ex) {
+                $error = $ex->getMessage();
+                
+                $this->addFlash(
+                    'error',
+                    "Error While deleting product image, It's use in order product."
+                );
+            } 
+            
         }
 
         return $this->redirectToRoute('productimages_index');

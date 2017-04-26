@@ -126,7 +126,18 @@ class ImageCategoryController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($imageCategory);
-            $em->flush($imageCategory);
+            
+            try{
+                $em->flush($imageCategory);
+                
+            } catch (\Exception $ex) {
+                $error = $ex->getMessage();
+                
+                $this->addFlash(
+                    'error',
+                    "Error While deleting product image."
+                );
+            } 
         }
 
         return $this->redirectToRoute('imagecategory_index');

@@ -4,18 +4,18 @@
     <h1>Productimage edit</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <br>
+        <div class="form-group">
+            <div class="col-md-4">
+                {{ form_widget(edit_form) }}<br>
+                <img src="/{{product_images_directory_assert}}/{{ productImage.image }}" width="100">
+            </div>
+            <div class="col-sm-10">
+                <br>
+                <input type="submit" value="Edit" class="btn btn-info"/>
+                <a href="{{ path('productimages_index') }}" class="btn btn-success">Back to the list</a>
+            </div>
+        </div>
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('productimages_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}
