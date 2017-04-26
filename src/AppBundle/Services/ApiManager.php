@@ -140,19 +140,20 @@ class ApiManager
      * getProductCategory 
      * 
      */
-    public function getProductCategory()
+    public function getProductCategory(Request $request)
     {
         $images = $this->entityManager->getRepository('AppBundle\Entity\ImageCategory')->findAll();
         
         if(!empty($images)) {
             
             $data = [];
+            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
             
             foreach($images as $key => $values){
                 $data[] = [
                   'id' => $values->getId(),
                   'name' => $values->getName(),
-                  'image' => ($values->getImage())?$this->container->getParameter('product_images_directory_assert').'/'.$values->getImage():''
+                  'image' => ($values->getImage())?$baseurl.'/'.$this->container->getParameter('product_images_directory_assert').'/'.$values->getImage():''
                 ];
             }
             $message = 'Category list';
