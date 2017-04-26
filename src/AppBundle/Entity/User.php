@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser
 {
+    const CLIENT_ID='1_6ctk3x82bd44kggw0ws8s40s8gk40cskwcc00gs4w0wck48ck0';
+    const CLIENT_SECRET='54vy9oat9u04koks4os40sc0c0kg0wk8gkw0g4s84ko0kc8ock';
+    
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

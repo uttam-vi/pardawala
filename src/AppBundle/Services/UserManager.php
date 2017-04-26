@@ -86,18 +86,38 @@ class UserManager
             
             $data = [];
             
-            $data['user'] = [
-                'id' => $object->getId(),
-                'roles' => $object->getRoles(),
-                'username' => $object->getUsername(),
-                'email' => $object->getEmail(),
-                'firstName' => $object->getFirstName(),
-                'lastName' => $object->getLastName()
-            ];
+            $server = $this->container->get('fos_oauth_server.server');
+            try {
+                $email = $request->request->get('email');
+                
+                $request->request->set('username',$email);
+                $request->request->set('grant_type','password');
+                $request->request->set('client_id',User::CLIENT_ID);
+                $request->request->set('client_secret',User::CLIENT_SECRET);
+                
+                $serverResponse = $server->grantAccessToken($request);
+                
+                $oAuthTokenJson = $serverResponse->getContent();
+                
+                $data['token'] = json_decode($oAuthTokenJson, true);
+                
+                $data['user'] = [
+                    'id' => $object->getId(),
+                    'roles' => $object->getRoles(),
+                    'username' => $object->getUsername(),
+                    'email' => $object->getEmail(),
+                    'firstName' => ($object->getFirstname()) ? $object->getFirstname() : "",
+                    'lastName' => ($object->getLastname()) ? $object->getLastname() : ""
+                ];
+                
+            } catch (OAuth2ServerException $e) {
+                return $e->getHttpResponse();
+            }
             
             $message = 'New user successfully created';
             
             return $this->successJsonResponse(201, $message, $data);
+
         } else {
 
             $message = $this->getError($form, $this->container->get('translator'));
