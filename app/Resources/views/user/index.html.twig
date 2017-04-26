@@ -3,10 +3,13 @@
 {% block body %}
     <h1>Users list</h1>
 
-    <table>
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -14,12 +17,11 @@
         {% for user in users %}
             <tr>
                 <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('user_show', { 'id': user.id }) }}" class="btn btn-warning">show</a>
                 </td>
             </tr>
         {% endfor %}

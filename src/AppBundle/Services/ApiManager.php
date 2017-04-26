@@ -120,11 +120,11 @@ class ApiManager
         if(!empty($images)) {
             
             $data = [];
-            
+            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
             foreach($images as $key => $values){
                 $data[] = [
                   'id' => $values->getId(),
-                  'image' => $this->container->getParameter('product_images_directory_assert').'/'.$values->getImage()
+                  'image' => ($values->getImage())?$baseurl.'/'.$this->container->getParameter('product_images_directory_assert').'/'.$values->getImage():''
                 ];
             }
             $message = 'Images found';
