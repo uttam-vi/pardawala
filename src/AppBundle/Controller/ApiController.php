@@ -12,9 +12,40 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-class ApiController extends FOSRestController {
-    
-    
+class ApiController extends FOSRestController 
+{
+    /**
+     * Get Product category list
+     *
+     * @ApiDoc(
+     *   resource=true,
+     *   description="Get Product category list",
+     *   resourceDescription="Get Product category list",
+     *      headers={
+     *          {
+     *              "name"="Authorization",
+     *              "required"=true,
+     *              "description"="Bearer <oAuth token>"
+     *          }
+     *      },
+     *      statusCodes={
+     *          200="Returned when successful",
+     *          400="Returned when the form has errors"
+     *      }
+     * )
+     * 
+     * @FOSRest\Get(
+     *      "/getProductCategory"
+     * )
+     * 
+     * @param Request $request the request object
+     *
+     * @return FormTypeInterface[]|View
+     */
+    public function getProductCategoryAction(Request $request) 
+    {
+        return $this->container->get('api.api_manager')->getProductCategory();
+    }
     
     /**
      * Get Product category wise images.

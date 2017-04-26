@@ -135,4 +135,32 @@ class ApiManager
 
         return $this->errorJsonResponse(200, $message, $data = [], $errors = []);
     }
+    
+    /**
+     * getProductCategory 
+     * 
+     */
+    public function getProductCategory()
+    {
+        $images = $this->entityManager->getRepository('AppBundle\Entity\ImageCategory')->findAll();
+        
+        if(!empty($images)) {
+            
+            $data = [];
+            
+            foreach($images as $key => $values){
+                $data[] = [
+                  'id' => $values->getId(),
+                  'name' => $values->getName(),
+                  'image' => 'https://lh3.googleusercontent.com/d8bVNMpINcqQn__EJ7BzAX99ZVA4g0y4NwzRwjKt43y1gBXhfXkKlMeuxFa_Cht3NAQ=h900-rw'
+                ];
+            }
+            $message = 'Category list';
+
+            return $this->successJsonResponse(200, $message, $data);
+        }      
+        $message = 'Category not found';
+
+        return $this->errorJsonResponse(200, $message, $data = [], $errors = []);
+    }
 }
