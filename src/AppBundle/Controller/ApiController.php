@@ -77,7 +77,7 @@ class ApiController extends FOSRestController
      */
     public function getProductImagesAction(Request $request, $category_id) 
     {
-        return $this->container->get('api.api_manager')->getProductImages($category_id);
+        return $this->container->get('api.api_manager')->getProductImages($request, $category_id);
     }
     
     /**

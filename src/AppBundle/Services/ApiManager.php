@@ -113,7 +113,7 @@ class ApiManager
      * getProductImages 
      * @param type $category_id
      */
-    public function getProductImages($category_id)
+    public function getProductImages(Request $request, $category_id)
     {
         $images = $this->entityManager->getRepository('AppBundle\Entity\ProductImages')->findByImageCategory($category_id);
         
