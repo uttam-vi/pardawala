@@ -152,7 +152,7 @@ class ApiManager
                 $data[] = [
                   'id' => $values->getId(),
                   'name' => $values->getName(),
-                  'image' => 'https://lh3.googleusercontent.com/d8bVNMpINcqQn__EJ7BzAX99ZVA4g0y4NwzRwjKt43y1gBXhfXkKlMeuxFa_Cht3NAQ=h900-rw'
+                  'image' => $this->container->getParameter('product_images_directory_assert').$values->getImage()
                 ];
             }
             $message = 'Category list';
