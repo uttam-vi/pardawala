@@ -44,7 +44,7 @@ class ApiController extends FOSRestController
      */
     public function getProductCategoryAction(Request $request) 
     {
-        return $this->container->get('api.api_manager')->getProductCategory();
+        return $this->container->get('api.api_manager')->getProductCategory($request);
     }
     
     /**
