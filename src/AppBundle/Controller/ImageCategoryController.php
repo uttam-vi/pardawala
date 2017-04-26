@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\ImageCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Imagecategory controller.
@@ -44,6 +45,12 @@ class ImageCategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $imageCategory->getImage();
+            
+            $fileName = $this->get('app.image_uploader')->upload($file);
+            
+            $imageCategory->setImage($fileName);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($imageCategory);
             $em->flush($imageCategory);
@@ -86,6 +93,13 @@ class ImageCategoryController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            
+            $file = $imageCategory->getImage();
+            
+            $fileName = $this->get('app.image_uploader')->upload($file);
+            
+            $imageCategory->setImage($fileName);
+            
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('imagecategory_edit', array('id' => $imageCategory->getId()));

@@ -94,13 +94,14 @@ class ProductImagesController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
             
-//            $file = $productImage->getImage();
-//            
-//            $fileName = $this->get('app.image_uploader')->upload($file);
-//            
-//            $productImage->setImage($fileName);
+            $file = $productImage->getImage();
+            
+            $fileName = $this->get('app.image_uploader')->upload($file);
+            
+            $productImage->setImage($fileName);
+            
+            $this->getDoctrine()->getManager()->flush();
             
             return $this->redirectToRoute('productimages_edit', array('id' => $productImage->getId()));
         }

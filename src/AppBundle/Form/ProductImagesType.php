@@ -21,7 +21,8 @@ class ProductImagesType extends AbstractType
                 )
                 ->add('imageCategory',
                         null,
-                        array('attr' => array('class'=>'form-control')));
+                        array('attr' => array('class'=>'form-control'),
+                            'data_class' => null));
     }
     
     /**
