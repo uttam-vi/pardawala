@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -33,6 +34,29 @@ class User extends BaseUser
      * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      */
     private $lastName;
+    
+    /**
+     * @Assert\NotBlank()
+     * @var string
+     */
+    protected $username;
+    
+    /**
+     * Encrypted password. Must be persisted.
+     * @Assert\NotBlank()
+     * @var string
+     */
+    protected $password;
+    
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *      message = "The email '{{ value }}' is not a valid email.",
+     *      checkMX = false
+     * )
+     * @var string
+     */
+    protected $email;
     
     /**
      * @var Job

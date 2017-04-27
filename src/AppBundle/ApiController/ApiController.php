@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\ApiController;
 
 use AppBundle\Entity\OrderProduct;
 use FOS\RestBundle\Controller\Annotations as FOSRest;

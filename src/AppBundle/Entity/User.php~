@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -10,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser
 {
+    const CLIENT_ID='1_6ctk3x82bd44kggw0ws8s40s8gk40cskwcc00gs4w0wck48ck0';
+    const CLIENT_SECRET='54vy9oat9u04koks4os40sc0c0kg0wk8gkw0g4s84ko0kc8ock';
+    
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -20,16 +24,39 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      */
     private $firstName;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=255)
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      */
     private $lastName;
+    
+    /**
+     * @Assert\NotBlank()
+     * @var string
+     */
+    protected $username;
+    
+    /**
+     * Encrypted password. Must be persisted.
+     * @Assert\NotBlank()
+     * @var string
+     */
+    protected $password;
+    
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *      message = "The email '{{ value }}' is not a valid email.",
+     *      checkMX = false
+     * )
+     * @var string
+     */
+    protected $email;
     
     /**
      * @var Job
@@ -76,5 +103,53 @@ class User extends BaseUser
     public function getOrderProduct()
     {
         return $this->orderProduct;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     *
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
     }
 }

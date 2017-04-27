@@ -16,6 +16,6 @@ fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
 
 api_controller:
-    resource: "@AppBundle/Controller/ApiController.php"
+    resource: "@AppBundle/ApiController/ApiController.php"
     type:     rest
     prefix:   /secure/api/
