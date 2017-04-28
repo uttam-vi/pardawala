@@ -16,6 +16,41 @@ use Symfony\Component\HttpFoundation\Request;
 class ImageCategoryController extends Controller
 {
     /**
+     * Sorting all imageCategory entities.
+     *
+     * @Route("/sorting", name="imagecategory_sorting")
+     * @Method("POST")
+     */
+    public function sortingAction(Request $request)
+    {
+        $data = $request->request->all();
+        $em = $this->getDoctrine()->getManager();
+        foreach($data as $key => $value){
+
+            $imageCategories = $em->getRepository('AppBundle:ImageCategory')->find($key);            
+            
+            $imageCategories->setSortOrder(intval($value));
+            
+            $em->persist($imageCategories);
+            
+        }
+        
+        try{
+            $em->flush();
+            
+        } catch (Exception $ex) {
+            $error = $ex->getMessage();
+                
+            $this->addFlash(
+                'error',
+                $error
+            );
+        } 
+                
+        return $this->redirect($this->generateUrl('imagecategory_index'));
+    }
+
+    /**
      * Lists all imageCategory entities.
      *
      * @Route("/", name="imagecategory_index")
