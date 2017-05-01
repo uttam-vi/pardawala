@@ -115,7 +115,7 @@ class SecurityController extends FOSRestController
             return $this->successJsonResponse(200, $message, $data);
         } else if (array_key_exists("error", $data['token'])) {
 
-            $message = $this->container->get('translator')->trans('validation.loginFail', [], 'messages');
+            $message = 'Invalid username and password combination.';
             $errors = [];
             return $this->errorJsonResponse(401, $message, $data, $errors);
         }
