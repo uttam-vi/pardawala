@@ -120,7 +120,7 @@ class ApiManager
         if(!empty($images)) {
             
             $data = [];
-            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+            $baseurl = $this->container->getParameter("base_url");
             foreach($images as $key => $values){
                 $data[] = [
                   'id' => $values->getId(),
@@ -147,7 +147,7 @@ class ApiManager
         if(!empty($images)) {
             
             $data = [];
-            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+            $baseurl = $this->container->getParameter("base_url");
             
             foreach($images as $key => $values){
                 $data[] = [
