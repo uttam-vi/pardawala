@@ -92,15 +92,18 @@ class ProductImagesController extends Controller
     {
         $deleteForm = $this->createDeleteForm($productImage);
         $editForm = $this->createForm('AppBundle\Form\ProductImagesType', $productImage);
+        
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             
             $file = $productImage->getImage();
             
-            $fileName = $this->get('app.image_uploader')->upload($file);
-            
-            $productImage->setImage($fileName);
+            if($file){
+                $fileName = $this->get('app.image_uploader')->upload($file);
+                
+                $productImage->setImage($fileName);                
+            }
             
             $this->getDoctrine()->getManager()->flush();
             

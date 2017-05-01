@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Name</th>
                 <th>Product Category</th>
                 <th>Image</th>
                 <th>Actions</th>
@@ -22,6 +23,7 @@
         {% for productImage in productImages %}
             <tr>
                 <td><a href="{{ path('productimages_show', { 'id': productImage.id }) }}">{{ productImage.id }}</a></td>
+                <td>{{ productImage.name }}</td>
                 <td>{{ productImage.imageCategory }}</td>
                 <td>
                     <img src="/{{product_images_directory_assert}}/{{ productImage.image }}" width="100">

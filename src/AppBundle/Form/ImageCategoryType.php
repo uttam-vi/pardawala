@@ -17,7 +17,8 @@ class ImageCategoryType extends AbstractType
         $builder
                 ->add('name',
                         TextType::class,
-                        array('attr' => array('class'=>'form-control'))
+                        array('attr' => array('class'=>'form-control')
+                            ,'required' => false)
                     )
                 ->add('image',
                         FileType::class,

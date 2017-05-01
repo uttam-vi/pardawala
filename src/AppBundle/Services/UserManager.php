@@ -52,8 +52,19 @@ class UserManager
         $detailedError = $request->get('detailedError');
        
         $password = $request->request->get('password');
-
+        
+        $grant_type = $request->request->get('grant_type');
+        
+        $client_id = $request->request->get('client_id');
+        
+        $client_secret = $request->request->get('client_secret');
+        
+        $request->request->remove('grant_type');
+        $request->request->remove('client_id');
+        $request->request->remove('client_secret');
+        
         $form->submit($request->request->all());
+        
         if ($form->isValid()) {
             
             $object = $form->getData();
@@ -76,24 +87,18 @@ class UserManager
                                 
                 $this->entityManager->persist($object);
                 $this->entityManager->flush();
-            } catch (Exception $e) {
-
-                $message = $this->container->get('translator')->trans('validation.addException', [], 'messages');
+            
+                
                 $data = [];
-                $errors = [];
-                return $this->errorJsonResponse(400, $message, $data, $errors);
-            }
-            
-            $data = [];
-            
-            $server = $this->container->get('fos_oauth_server.server');
-            try {
+
+                $server = $this->container->get('fos_oauth_server.server');
+                
                 $email = $request->request->get('email');
                 
                 $request->request->set('username',$email);
-                $request->request->set('grant_type','password');
-                $request->request->set('client_id',User::CLIENT_ID);
-                $request->request->set('client_secret',User::CLIENT_SECRET);
+                $request->request->set('grant_type',$grant_type);
+                $request->request->set('client_id',$client_id);
+                $request->request->set('client_secret',$client_secret);
                 
                 $serverResponse = $server->grantAccessToken($request);
                 
@@ -108,9 +113,25 @@ class UserManager
                     'email' => $object->getEmail(),
                     'firstName' => ($object->getFirstname()) ? $object->getFirstname() : "",
                     'lastName' => ($object->getLastname()) ? $object->getLastname() : ""
-                ];
+                ];                
                 
-            } catch (OAuth2ServerException $e) {
+            } catch (Exception $e) {
+
+                $message = $this->container->get('translator')->trans('validation.addException', [], 'messages');
+                $data = [];
+                $errors = [];
+                return $this->errorJsonResponse(400, $message, $data, $errors);
+            } catch (UniqueConstraintViolationException  $e){
+                $message = 'Integrity constraint violation, Duplicate entry';
+                $data = [];
+                $errors = [];
+                return $this->errorJsonResponse(400, $message, $data, $errors);
+            }catch (OAuth2ServerException $e) {
+                $message = $e->getMessage();
+                $data = [];
+                $errors = [];
+                return $this->errorJsonResponse(400, $message, $data, $errors);
+                
                 return $e->getHttpResponse();
             }
             

@@ -57,7 +57,25 @@ class SignupController extends FOSRestController
      *          "dataType"="string", 
      *          "required"=true, 
      *          "description"="password of user NOTE : Your password must be at least 6 characters long containing at least one number and at least one uppercase letter, REGX : /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,255}/" 
-     *      }
+     *      },
+     *      {
+     *          "name"="grant_type", 
+     *          "dataType"="string", 
+     *          "required"=true,
+     *          "description"="'password' as oAuth grant type"
+     *      },
+     *      {
+     *          "name"="client_id", 
+     *          "dataType"="string", 
+     *          "required"=true, 
+     *          "description"="oAuth client id"
+     *      },
+     *      {
+     *          "name"="client_secret", 
+     *          "dataType"="string", 
+     *          "required"=true, 
+     *          "description"="oAuth client secret"
+     *      },
      *   }
      * )
      * 

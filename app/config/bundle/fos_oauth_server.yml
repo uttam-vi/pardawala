@@ -8,6 +8,7 @@ fos_oauth_server:
         user_provider: api.security.oauth_user_provider             # user provider
         options:
             access_token_lifetime: 3600000
+            supported_scopes: ""
 
 
 #services:

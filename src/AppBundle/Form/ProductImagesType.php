@@ -15,10 +15,15 @@ class ProductImagesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('image',
+        $builder->add('name',
+                        TextType::class,
+                        array('attr' => array('class'=>'form-control'))
+                    )
+                ->add('image',
                     FileType::class,
                     array('attr' => array('class'=>'form-control'),
-                            'data_class' => null)
+                            'data_class' => null,
+                            'required' => false)
                 )
                 ->add('imageCategory',
                         null,
