@@ -124,6 +124,7 @@ class ApiManager
             foreach($images as $key => $values){
                 $data[] = [
                   'id' => $values->getId(),
+                  'name' => $values->getName(),
                   'image' => ($values->getImage())?$baseurl.'/'.$this->container->getParameter('product_images_directory_assert').'/'.$values->getImage():''
                 ];
             }
