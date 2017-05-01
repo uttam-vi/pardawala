@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     <h2>Go to</h2>
     <ul>
         <li>
@@ -24,4 +25,5 @@
             </a>
         </li>
     </ul>
+    {% endif %}
 {% endblock %}
