@@ -85,8 +85,19 @@ class ImageCategoryController extends Controller
             $fileName = $this->get('app.image_uploader')->upload($file);
             
             $imageCategory->setImage($fileName);
-            
+
             $em = $this->getDoctrine()->getManager();
+            
+            $highest_id = $em->createQueryBuilder()
+                            ->select('MAX(e.sortOrder)')
+                            ->from('AppBundle:ImageCategory', 'e')
+                            ->getQuery()
+                            ->getSingleScalarResult();
+            
+            $highest_id = ($highest_id)?$highest_id:0;
+            
+            $imageCategory->setSortOrder($highest_id+1);
+            
             $em->persist($imageCategory);
             $em->flush($imageCategory);
 
@@ -123,6 +134,8 @@ class ImageCategoryController extends Controller
      */
     public function editAction(Request $request, ImageCategory $imageCategory)
     {
+        $image = $imageCategory->getImage();
+        
         $deleteForm = $this->createDeleteForm($imageCategory);
         $editForm = $this->createForm('AppBundle\Form\ImageCategoryType', $imageCategory);
         $editForm->handleRequest($request);
@@ -131,9 +144,14 @@ class ImageCategoryController extends Controller
             
             $file = $imageCategory->getImage();
             
-            $fileName = $this->get('app.image_uploader')->upload($file);
-            
-            $imageCategory->setImage($fileName);
+            if($file){
+                $fileName = $this->get('app.image_uploader')->upload($file);
+                
+                $imageCategory->setImage($fileName);
+            }else{
+                
+                $imageCategory->setImage($image);
+            }
             
             $this->getDoctrine()->getManager()->flush();
 

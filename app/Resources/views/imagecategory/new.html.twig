@@ -1,19 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Imagecategory creation</h1>
-    
-    {{ form_start(form) }}
-    <br>
-        <div class="form-group">
-            <div class="col-md-4">
-                {{ form_widget(form) }}<br>
-            </div>
-    
-            <div class="col-sm-10">
-                <input type="submit" value="Create" class="btn btn-info"/>
-                <a href="{{ path('imagecategory_index') }}" class="btn btn-success">Back to the list</a>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title"><strong>Product Category Create</strong></div>
+                </div>
+                <div class="panel-body">
+                    {{ form_start(form) }}
+{#                            {{ form_widget(form) }}#}
+                        <fieldset>
+                            <div class="form-group">
+                                <label>Name</label>
+                                {{ form_widget(form.name) }}
+                            </div>
+                            <div class="form-group">
+                                <label>Image</label>
+                                {{ form_widget(form.image) }}
+                            </div>
+                        </fieldset>
+                        <div>
+                            <input type="submit" value="Create" class="btn btn-primary"/>
+                            <a href="{{ path('imagecategory_index') }}" class="btn btn-default">Back to the list</a>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
             </div>
         </div>
-    {{ form_end(form) }}
+    </div>
+    
+    {#<h1>Imagecategory creation</h1>
+
+    {{ form_start(form) }}
+    <br>
+    <div class="form-group">
+        <div class="col-md-4">
+            {{ form_widget(form) }}<br>
+        </div>
+
+        <div class="col-sm-10">
+            <input type="submit" value="Create" class="btn btn-info"/>
+            <a href="{{ path('imagecategory_index') }}" class="btn btn-success">Back to the list</a>
+        </div>
+    </div>
+    {{ form_end(form) }}#}
 {% endblock %}

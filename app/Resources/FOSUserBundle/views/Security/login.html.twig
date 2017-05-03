@@ -1,7 +1,10 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
+{% block title %} Login
+{% endblock title %}
+
 {% block fos_user_content %}
-    <div class="container col-md-12">
-        {{ include('@FOSUser/Security/login_content.html.twig') }}
-    </div>
+    
+    {{ include('@FOSUser/Security/login_content.html.twig') }}
+    
 {% endblock fos_user_content %}

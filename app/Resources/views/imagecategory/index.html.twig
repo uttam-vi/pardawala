@@ -5,13 +5,65 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Imagecategories list</h1>
-    {% for flash_message in app.session.flashBag.get('error') %}
-        <div class="flash-notice alert alert-danger">
-            <strong>Error!</strong> {{ flash_message }}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h3>Product Categories List</h3>
+                    </div>
+                    <a href="{{ path('imagecategory_new') }}" class="btn btn-default pull-right">Create New</a>
+                </div><br><br>
+                {% for flash_message in app.session.flashBag.get('error') %}
+                    <div class="flash-notice alert alert-danger" style="margin:15px;">
+                        <strong>Error!</strong> {{ flash_message }}
+                    </div>
+                {% endfor %}
+                <div class="panel-body">
+                    <form action="/admin/imagecategory/sorting" method="post" class="sortingForm">
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="10%">#</th>
+                                    <th width="45%">Name</th>
+                                    <th width="20%">Image</th>
+                                    <th width="25%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set no = 1 %}
+                                {% for imageCategory in imageCategories %}
+                                    <tr>
+                                        <td class="sorting">
+                                            <input type="hidden" name="{{imageCategory.id}}" value={{no}}>
+                                            <label> {{ no }} {% set no=no+1 %}</label>
+                                        </td>
+                                        <td>
+                                            {{ imageCategory.name }}
+                                            <span class="glyphicon glyphicon-move pull-right" aria-hidden="true"></span>                            
+                                        </td>
+                                        <td>
+                                            {% if imageCategory.image %}
+                                                <img src="/{{product_images_directory_assert}}/{{ imageCategory.image }}" width="60">
+                                            {% endif%}
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('imagecategory_show', { 'id': imageCategory.id }) }}" class="btn btn-warning">show</a>
+                                            <a href="{{ path('imagecategory_edit', { 'id': imageCategory.id }) }}" class="btn btn-primary">edit</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
         </div>
-    {% endfor %}
-    <div class="container col-md-6">
+    </div>
+                        
+    
+    
+    {#<div class="container col-md-6">
         <form action="/admin/imagecategory/sorting" method="post" class="sortingForm">
             <table class="table table-bordered pagin-table">
                 <thead>
@@ -24,41 +76,43 @@
                 </thead>
                 <tbody>
                     {% set no = 1 %}
-                {% for imageCategory in imageCategories %}
-                    <tr>
-                        <td class="sorting">
-                            <input type="hidden" name="{{imageCategory.id}}" value={{no}}>
-                            <label> {{ no }} {% set no=no+1 %}</label>
-                        </td>
-                        <td>
-                            {{ imageCategory.name }}
-                            <span class="glyphicon glyphicon-move pull-right" aria-hidden="true"></span>                            
-                        </td>
-                        <td>
-                            {% if imageCategory.image %}
-                                <img src="/{{product_images_directory_assert}}/{{ imageCategory.image }}" width="60">
-                            {% endif%}
-                        </td>
-                        <td>
+                    {% for imageCategory in imageCategories %}
+                        <tr>
+                            <td class="sorting">
+                                <input type="hidden" name="{{imageCategory.id}}" value={{no}}>
+                                <label> {{ no }} {% set no=no+1 %}</label>
+                            </td>
+                            <td>
+                                {{ imageCategory.name }}
+                                <span class="glyphicon glyphicon-move pull-right" aria-hidden="true"></span>                            
+                            </td>
+                            <td>
+                                {% if imageCategory.image %}
+                                    <img src="/{{product_images_directory_assert}}/{{ imageCategory.image }}" width="60">
+                                {% endif%}
+                            </td>
+                            <td>
                                 <a href="{{ path('imagecategory_show', { 'id': imageCategory.id }) }}" class="btn btn-warning">show</a>
                                 <a href="{{ path('imagecategory_edit', { 'id': imageCategory.id }) }}" class="btn btn-primary">edit</a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </form>
         <a href="{{ path('imagecategory_new') }}" class="btn btn-default">Create a new Image Category</a>
-    </div>
+    </div>#}
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
     <script type="text/javascript">
         $('tbody').sortable({
-            update: function( event, ui ) {
-                var i=1;
-                $('.sorting').each(function(){
+            update: function (event, ui) {
+                var i = 1;
+                $('.sorting').each(function () {
                     $(this).find('input').val(i);
                     $(this).find('label').html(i);
                     i++;

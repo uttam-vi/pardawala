@@ -1,26 +1,62 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-<div style="margin:0px auto; width:460px;">
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    {% if csrf_token %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    {% endif %}
-    <div class="form-group">
-        <label for="username">{{ 'security.login.username'|trans }}</label>
-        <input type="text" placeholder="Email" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" />
+{#<div class="login-bg">#}
+    <div class="page-content container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-wrapper">
+                    <div class="box">
+                        <div class="content-wrap">
+                            <h6>Sign In</h6>
+                            {% if error %}
+                                <div class="alert alert-danger" role="alert">
+                                    <span class="alert-link">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                                </div>
+                            {% endif %}
+                            <form action="{{ path("fos_user_security_check") }}" method="post">
+                                {% if csrf_token %}
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                {% endif %}
+                                <input class="form-control" 
+                                       type="text" 
+                                       placeholder="E-mail address" 
+                                       name="_username" 
+                                       value="{{ last_username }}" 
+                                       required="required">
+                                
+                                <input class="form-control" 
+                                       type="password" 
+                                       placeholder="Password"
+                                       name="_password"
+                                       required="required">
+                                
+                                <input type="checkbox" 
+                                       id="remember_me" 
+                                       name="_remember_me" 
+                                       value="on" 
+                                       id="remember_me">
+                                
+                                <label for="remember_me">
+                                    {{ 'security.login.remember_me'|trans }} 
+                                </label>
+                                
+                                <div class="action">
+                                    <input type="submit" 
+                                           id="_submit" 
+                                           name="_submit" 
+                                           class="btn btn-primary signup" 
+                                           value="Login" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    {#<div class="already">
+                        <p>Don't have an account yet?</p>
+                        <a href="signup.html">Sign Up</a>
+                    </div>#}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="password">{{ 'security.login.password'|trans }}</label>
-        <input type="password" class="form-control" id="username" name="_password" required="required" />
-    </div>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on"> {{ 'security.login.remember_me'|trans }}
-        </label>
-    </div>
-    <input type="submit" id="_submit" name="_submit" class="btn btn-default" value="{{ 'security.login.submit'|trans }}" />
-</form>
-</div>
+{#</div>#}

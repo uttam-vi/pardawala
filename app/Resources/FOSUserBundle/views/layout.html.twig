@@ -2,10 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="{{ asset('theme/bootstrap/css/bootstrap.min.css') }}">
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ asset('theme/css/styles.css') }}">
     </head>
-    <body>
-        <div style="margin:0px auto; width:460px;text-align: center;">
+    <body class="login-bg">
+        {#<div style="margin:0px auto; width:460px;text-align: center;">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
                 <a href="{{ path('fos_user_security_logout') }}">
@@ -14,8 +18,20 @@
             {% else %}
                 <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
             {% endif %}
+        </div>#}
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <h1><a href="#">{{ site_name }} Admin</a></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
+        
         {% if app.request.hasPreviousSession %}
             {% for type, messages in app.session.flashbag.all() %}
                 {% for message in messages %}
@@ -26,9 +42,13 @@
             {% endfor %}
         {% endif %}
 
-        <div>
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
-        </div>
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="{{ asset('theme/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('theme/js/custom.js') }}"></script>
     </body>
 </html>

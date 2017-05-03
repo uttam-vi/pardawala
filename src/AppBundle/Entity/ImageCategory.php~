@@ -32,6 +32,13 @@ class ImageCategory
     /**
      * @var string
      *
+     * @ORM\Column(name="sort_order", type="integer")
+     */
+    private $sortOrder;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="image", type="string", length=255)
      * @Assert\Image()
      */
@@ -126,5 +133,29 @@ class ImageCategory
     public function getProductImages()
     {
         return $this->productImages;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return ImageCategory
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

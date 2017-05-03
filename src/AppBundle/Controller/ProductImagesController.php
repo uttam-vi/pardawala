@@ -90,6 +90,8 @@ class ProductImagesController extends Controller
      */
     public function editAction(Request $request, ProductImages $productImage)
     {
+        $image = $productImage->getImage();
+        
         $deleteForm = $this->createDeleteForm($productImage);
         $editForm = $this->createForm('AppBundle\Form\ProductImagesType', $productImage);
         
@@ -102,7 +104,10 @@ class ProductImagesController extends Controller
             if($file){
                 $fileName = $this->get('app.image_uploader')->upload($file);
                 
-                $productImage->setImage($fileName);                
+                $productImage->setImage($fileName);
+            }else{
+                
+                $productImage->setImage($image);
             }
             
             $this->getDoctrine()->getManager()->flush();

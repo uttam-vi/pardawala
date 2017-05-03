@@ -1,7 +1,61 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Orderproduct</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title"><strong>Order</strong></div>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ orderProduct.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Order Details</th>
+                                <td>
+                                        {% for details in orderProduct.orderProductdetail %}
+                                            <div class="raw col-md-3">
+                                                <label>Image Category :</label>   {{ details.ImageCategory }} <br>
+                                                <img src="/{{product_images_directory_assert}}/{{ details.productImages.image }}" width="200"><br>
+                                            </div>
+                                        {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Discription</th>
+                                <td>{{ orderProduct.discription }}</td>
+                            </tr>
+                            <tr>
+                                <th>Originimage</th>
+                                <td>
+                                    <img src="/{{product_images_directory_assert}}/{{ orderProduct.originImage }}" width="200">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Finalimage</th>
+                                <td>
+                                    <img src="/{{product_images_directory_assert}}/{{ orderProduct.finalImage }}" width="200">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="{{ path('orderproduct_index') }}" class="btn btn-default">Back to the list</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+                                
+    {#<h1>Orderproduct</h1>
 
     <table class="table col-md-3">
         <tbody>
@@ -44,6 +98,6 @@
                 </td>
             </tr>
         </tfoot>
-    </table>
+    </table>#}
 
 {% endblock %}

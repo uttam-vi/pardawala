@@ -24,7 +24,8 @@ class ImageCategoryType extends AbstractType
                         FileType::class,
                         array(
                             'attr' => array('class'=>'form-control'),
-                            'data_class' => null)
+                            'data_class' => null,
+                            'required' => false)
                 );
     }
     

@@ -44,6 +44,7 @@ twig:
     globals:
         product_images_directory: "%product_images_directory%"
         product_images_directory_assert: "%product_images_directory_assert%"
+        site_name: "%site_name%"
         
 # Doctrine Configuration
 doctrine:
